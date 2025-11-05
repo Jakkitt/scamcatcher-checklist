@@ -1,0 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{input,select,textarea,button{@apply outline-none} input,select,textarea{@apply border rounded-lg px-3 py-2 w-full}} .container{@apply max-w-6xl mx-auto px-4}

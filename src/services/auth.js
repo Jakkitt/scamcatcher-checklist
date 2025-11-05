@@ -1,0 +1,37 @@
+import { api } from '../utils/api';
+const delay = (ms)=>new Promise(r=>setTimeout(r, ms));
+
+export async function login({ email, password }){
+  if (import.meta?.env?.VITE_API_BASE_URL) {
+    const user = await api.request('/auth/login', { method:'POST', body:{ email, password } });
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
+  }
+  await delay(400);
+  if (!email || !password) throw new Error('กรอกข้อมูลไม่ครบ');
+  const mock = { email };
+  localStorage.setItem('user', JSON.stringify(mock));
+  return mock;
+}
+
+export async function register({ username, email, password, gender, dob }){
+  if (import.meta?.env?.VITE_API_BASE_URL) {
+    const user = await api.request('/auth/register', { method:'POST', body:{ username, email, password, gender, dob } });
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
+  }
+  await delay(500);
+  if (!email || !password) throw new Error('กรอกข้อมูลไม่ครบ');
+  const mock = { username, email, gender, dob };
+  localStorage.setItem('user', JSON.stringify(mock));
+  return mock;
+}
+
+export function logout(){ localStorage.removeItem('user'); }
+export function getCurrentUser(){ try{ return JSON.parse(localStorage.getItem('user')); }catch{ return null } }
+export function updateUser(partial){
+  const u = getCurrentUser() || {};
+  const merged = { ...u, ...partial };
+  localStorage.setItem('user', JSON.stringify(merged));
+  return merged;
+}
