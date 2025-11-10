@@ -13,10 +13,25 @@ export default function Navbar(){
       <div className="container h-16 flex items-center justify-between">
         <Link to="/" className="font-extrabold text-xl">ScamCatcher</Link>
         <nav className="flex items-center gap-4 text-sm">
-          <NavLink to="/search/detail" className={({isActive})=>isActive?'font-semibold':''}>ค้นหา</NavLink>
-          <NavLink to="/report" className={({isActive})=>isActive?'font-semibold':''}>รายงาน</NavLink>
+          <NavLink
+            to="/search/detail"
+            className={({isActive})=>`px-2 py-1 rounded-md font-medium ${isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}
+          >
+            ค้นหา
+          </NavLink>
+          <NavLink
+            to="/report"
+            className={({isActive})=>`px-2 py-1 rounded-md font-medium ${isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}
+          >
+            รายงาน
+          </NavLink>
           {user?.role === 'admin' && (
-            <NavLink to="/admin" className={({isActive})=>isActive?'font-semibold':''}>แอดมิน</NavLink>
+            <NavLink
+              to="/admin"
+              className={({isActive})=>`px-2 py-1 rounded-md font-medium ${isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}
+            >
+              แอดมิน
+            </NavLink>
           )}
           {!user ? (
             <>
@@ -25,7 +40,12 @@ export default function Navbar(){
             </>
           ) : (
             <>
-              <NavLink to="/profile" className={({isActive})=>isActive?'font-semibold':''}>โปรไฟล์</NavLink>
+              <NavLink
+                to="/profile"
+                className={({isActive})=>`px-2 py-1 rounded-md font-medium ${isActive ? 'text-black dark:text-white' : 'text-gray-700 dark:text-gray-300'}`}
+              >
+                โปรไฟล์
+              </NavLink>
               <button onClick={handleLogout} className="px-3 py-1.5 rounded-lg border dark:border-gray-700">ออกจากระบบ</button>
             </>
           )}
