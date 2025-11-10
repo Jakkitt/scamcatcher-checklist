@@ -37,12 +37,12 @@ export default function ReportList() {
       <section className="md:col-span-2">
         {/* แท็บบน */}
         <div className="mb-6">
-          <div className="w-full flex items-center gap-2 bg-gray-100 rounded-xl p-1">
+          <div className="w-full flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
             <NavLink
               to="/profile"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -52,7 +52,7 @@ export default function ReportList() {
               to="/reports"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -62,7 +62,7 @@ export default function ReportList() {
               to="/settings"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -72,7 +72,7 @@ export default function ReportList() {
         </div>
 
         {/* รายการรายงาน */}
-        <div className="border rounded-xl bg-white p-6">
+        <div className="border rounded-xl bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
           <h1 className="text-xl font-bold mb-4">รายงานของฉัน</h1>
 
           {!items ? (
@@ -89,7 +89,7 @@ export default function ReportList() {
               {items.map((r) => (
                 <li
                   key={r.id}
-                  className="border rounded-lg p-4 flex items-start justify-between"
+                  className="border rounded-lg p-4 flex items-start justify-between dark:border-gray-800"
                 >
                   <div>
                     <div className="font-medium">{r.name || "ไม่ระบุชื่อ"}</div>

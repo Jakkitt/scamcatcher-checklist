@@ -71,12 +71,12 @@ export default function ChangePassword() {
       <section className="md:col-span-2">
         {/* แท็บด้านบน */}
         <div className="mb-6">
-          <div className="w-full flex items-center gap-2 bg-gray-100 rounded-xl p-1">
+          <div className="w-full flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
             <NavLink
               to="/profile"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -86,7 +86,7 @@ export default function ChangePassword() {
               to="/reports"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -96,7 +96,7 @@ export default function ChangePassword() {
               to="/settings"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -106,16 +106,16 @@ export default function ChangePassword() {
         </div>
 
         {/* กล่องฟอร์มเปลี่ยนรหัส */}
-        <div className="border rounded-xl bg-white p-6">
+        <div className="border rounded-xl bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
           <h1 className="text-xl font-bold mb-1">เปลี่ยนรหัสผ่าน</h1>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
             จัดการรหัสผ่านของคุณ
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="grid md:grid-cols-2 gap-4">
             {/* อีเมล */}
             <div className="md:col-span-2">
-              <label className="block text-sm text-gray-500 mb-1">อีเมล</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">อีเมล</label>
               <input
                 {...register("email")}
                 readOnly
@@ -128,7 +128,7 @@ export default function ChangePassword() {
 
             {/* รหัสปัจจุบัน / ยืนยันรหัสปัจจุบัน */}
             <div>
-              <label className="block text-sm text-gray-500 mb-1">รหัสปัจจุบัน</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">รหัสปัจจุบัน</label>
               <input
                 type="password"
                 placeholder="********"
@@ -142,7 +142,7 @@ export default function ChangePassword() {
               )}
             </div>
             <div>
-              <label className="block text-sm text-gray-500 mb-1">
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
                 ยืนยันรหัสปัจจุบัน
               </label>
               <input
@@ -160,7 +160,7 @@ export default function ChangePassword() {
 
             {/* รหัสใหม่ / ยืนยันรหัสใหม่ */}
             <div>
-              <label className="block text-sm text-gray-500 mb-1">รหัสใหม่</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">รหัสใหม่</label>
               <input
                 type="password"
                 placeholder="********"
@@ -172,7 +172,7 @@ export default function ChangePassword() {
               )}
             </div>
             <div>
-              <label className="block text-sm text-gray-500 mb-1">
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
                 ยืนยันรหัสใหม่
               </label>
               <input

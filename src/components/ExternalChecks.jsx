@@ -3,10 +3,10 @@ import React from "react";
 
 function Row({ title, found }) {
   return (
-    <div className="border rounded-xl p-4 flex items-center justify-between">
+    <div className="border rounded-xl p-4 flex items-center justify-between dark:border-gray-800">
       <div>
         <div className="font-semibold">{title}</div>
-        <div className="text-xs text-gray-500 mt-1">
+        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
           {found ? "พบบัญชีผู้กระทำผิดในฐานข้อมูล" : "ไม่พบข้อมูลในฐานข้อมูล"}
         </div>
       </div>

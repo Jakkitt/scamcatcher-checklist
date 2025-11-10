@@ -1,16 +1,19 @@
 import { api } from '../utils/api';
-const API = import.meta.env.VITE_API_BASE_URL;
 const delay = (ms)=>new Promise(r=>setTimeout(r, ms));
 
 export async function login({ email, password }){
   if (import.meta?.env?.VITE_API_BASE_URL) {
     const user = await api.request('/auth/login', { method:'POST', body:{ email, password } });
+    // fallback เผื่อแบ็คเอนด์ไม่ส่ง role
+    if (!user.role) user.role = 'user';
     localStorage.setItem('user', JSON.stringify(user));
     return user;
   }
   await delay(400);
   if (!email || !password) throw new Error('กรอกข้อมูลไม่ครบ');
-  const mock = { email };
+  // mock: ถ้าอีเมลขึ้นต้นด้วย admin ให้เป็นผู้ดูแล
+  const isAdmin = String(email).toLowerCase().startsWith('admin');
+  const mock = { email, role: isAdmin ? 'admin' : 'user' };
   localStorage.setItem('user', JSON.stringify(mock));
   return mock;
 }
@@ -18,12 +21,14 @@ export async function login({ email, password }){
 export async function register({ username, email, password, gender, dob }){
   if (import.meta?.env?.VITE_API_BASE_URL) {
     const user = await api.request('/auth/register', { method:'POST', body:{ username, email, password, gender, dob } });
+    if (!user.role) user.role = 'user';
     localStorage.setItem('user', JSON.stringify(user));
     return user;
   }
   await delay(500);
   if (!email || !password) throw new Error('กรอกข้อมูลไม่ครบ');
-  const mock = { username, email, gender, dob };
+  const isAdmin = String(email).toLowerCase().startsWith('admin');
+  const mock = { username, email, gender, dob, role: isAdmin ? 'admin' : 'user' };
   localStorage.setItem('user', JSON.stringify(mock));
   return mock;
 }

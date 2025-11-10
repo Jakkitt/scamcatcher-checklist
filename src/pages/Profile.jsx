@@ -45,12 +45,12 @@ export default function Profile() {
       <section className="md:col-span-2">
         {/* แท็บด้านบนให้เหมือนหน้าที่เหลือ */}
         <div className="mb-6">
-          <div className="w-full flex items-center gap-2 bg-gray-100 rounded-xl p-1">
+          <div className="w-full flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
             <NavLink
               to="/profile"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -60,7 +60,7 @@ export default function Profile() {
               to="/reports"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -70,7 +70,7 @@ export default function Profile() {
               to="/settings"
               className={({ isActive }) =>
                 `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white shadow-sm font-semibold" : "text-gray-600"
+                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
                 }`
               }
             >
@@ -80,12 +80,12 @@ export default function Profile() {
         </div>
 
         {/* ฟอร์มแก้ไขข้อมูลส่วนตัว */}
-        <div className="border rounded-xl bg-white p-6">
+        <div className="border rounded-xl bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
           <h1 className="text-xl font-bold mb-4">แก้ไขข้อมูลส่วนตัว</h1>
 
           <form onSubmit={handleSubmit(onSubmit)} className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-gray-500 mb-1">ชื่อผู้ใช้</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">ชื่อผู้ใช้</label>
               <input
                 {...register("username")}
                 placeholder="ชื่อที่ใช้แสดง"
@@ -94,7 +94,7 @@ export default function Profile() {
             </div>
 
             <div>
-              <label className="block text-sm text-gray-500 mb-1">เพศ</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">เพศ</label>
               <select
                 {...register("gender")}
                 className="w-full border rounded-lg h-10 px-3"
@@ -107,7 +107,7 @@ export default function Profile() {
             </div>
 
             <div>
-              <label className="block text-sm text-gray-500 mb-1">วันเกิด</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">วันเกิด</label>
               <input
                 type="date"
                 {...register("dob")}

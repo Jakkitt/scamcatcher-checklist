@@ -16,13 +16,14 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import RequireAuth from './utils/RequireAuth';
+import RequireRole from './utils/RequireRole';
 import ErrorBoundary from './ErrorBoundary';
 import AppToaster from './components/Toaster';
+import AdminRoutes from './admin/routes';
 
 import { ThemeProvider } from './contexts/ThemeContext';
 // ถ้ามี AuthProvider อยู่แล้วให้คงไว้
 import { AuthProvider } from './contexts/AuthContext';
-console.log("API BASE URL =", import.meta.env.VITE_API_BASE_URL);
 
 export default function App() {
   return (
@@ -48,8 +49,16 @@ export default function App() {
                 <Route path="/reports" element={<RequireAuth><ReportList /></RequireAuth>} />
                 <Route path="/change-password" element={<RequireAuth><ChangePassword /></RequireAuth>} />
                 <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
-                <Route path="/change-password" element={<RequireAuth><ChangePassword /></RequireAuth>} />
-  
+
+                {/* admin */}
+                <Route path="/admin/*" element={
+                  <RequireAuth>
+                    <RequireRole role="admin">
+                      <AdminRoutes />
+                    </RequireRole>
+                  </RequireAuth>
+                } />
+
                 {/* fallback */}
                 <Route path="*" element={<div className="container py-20 text-center">404 - ไม่พบหน้า</div>} />
               </Routes>
