@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Lock, Mail, LogIn, UserPlus, Shield } from 'lucide-react'
+import { Lock, Mail, LogIn, UserPlus } from 'lucide-react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -37,9 +37,9 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-950 to-black relative overflow-hidden flex items-center justify-center">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="min-h-[70vh] pt-16 relative overflow-hidden flex items-start justify-center bg-gray-50 dark:bg-gradient-to-br dark:from-gray-950 dark:via-slate-950 dark:to-black">
+      {/* Animated Background (dark only) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden dark:block">
         <div
           className="absolute w-96 h-96 bg-cyan-400/25 rounded-full blur-3xl"
           style={{
@@ -71,19 +71,15 @@ export default function Login() {
 
       {/* Login Form */}
       <div className="relative z-10 w-full max-w-md mx-4">
-        <div className="flex justify-center mb-8">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-400/30 to-blue-400/30 border border-cyan-400/50 text-cyan-100 text-sm backdrop-blur-sm shadow-lg shadow-cyan-400/20">
-            <Shield className="w-4 h-4" />
-            ScamCatcher Security
-          </div>
-        </div>
 
-        <div className="bg-gradient-to-br from-gray-900/70 to-gray-950/70 backdrop-blur-xl border border-cyan-400/20 rounded-3xl p-8 shadow-2xl shadow-cyan-500/10">
+        <div className="rounded-3xl p-8 shadow-2xl 
+                        bg-white border border-gray-200 text-gray-900 
+                        dark:bg-gradient-to-br dark:from-gray-900/70 dark:to-gray-950/70 dark:text-white dark:border-cyan-400/20 dark:backdrop-blur-xl dark:shadow-cyan-500/10">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-white mb-2 bg-gradient-to-r from-cyan-300 to-blue-300 text-transparent bg-clip-text">
+            <h2 className="text-3xl font-black mb-2 dark:text-white">
               เข้าสู่ระบบ
             </h2>
-            <p className="text-gray-400">กรอกอีเมลและรหัสผ่านเพื่อเข้าสู่ระบบ</p>
+            <p className="text-gray-500 dark:text-gray-400">กรอกอีเมลและรหัสผ่านเพื่อเข้าสู่ระบบ</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -93,7 +89,7 @@ export default function Login() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm text-cyan-300 mb-2 font-medium">อีเมล</label>
+              <label className="block text-sm mb-2 font-medium text-gray-700 dark:text-cyan-300">อีเมล</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
@@ -102,14 +98,16 @@ export default function Login() {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="your@email.com"
                   required
-                  className="w-full h-12 pl-12 pr-4 rounded-xl bg-gray-900/50 border border-cyan-400/30 text-white placeholder-gray-500 focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20 transition-all outline-none"
+                  className="w-full h-12 pl-12 pr-4 rounded-xl transition-all outline-none 
+                             bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:border-gray-400 focus:ring-2 focus:ring-gray-200 
+                             dark:bg-gray-900/50 dark:border-cyan-400/30 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400/60 dark:focus:ring-cyan-400/20"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm text-cyan-300 mb-2 font-medium">รหัสผ่าน</label>
+              <label className="block text-sm mb-2 font-medium text-gray-700 dark:text-cyan-300">รหัสผ่าน</label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
@@ -118,13 +116,15 @@ export default function Login() {
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   placeholder="••••••••"
                   required
-                  className="w-full h-12 pl-12 pr-4 rounded-xl bg-gray-900/50 border border-cyan-400/30 text-white placeholder-gray-500 focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20 transition-all outline-none"
+                  className="w-full h-12 pl-12 pr-4 rounded-xl transition-all outline-none 
+                             bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:border-gray-400 focus:ring-2 focus:ring-gray-200 
+                             dark:bg-gray-900/50 dark:border-cyan-400/30 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400/60 dark:focus:ring-cyan-400/20"
                 />
               </div>
             </div>
 
             <div className="text-right">
-              <button type="button" className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors">
+              <button type="button" className="text-sm text-gray-800 hover:text-black transition-colors dark:text-cyan-300 dark:hover:text-cyan-200">
                 ลืมรหัสผ่าน?
               </button>
             </div>
@@ -132,7 +132,9 @@ export default function Login() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-14 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold text-lg hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 shadow-xl shadow-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-500/50 hover:scale-[1.02] transform flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-2 rounded-lg disabled:opacity-60 flex items-center justify-center gap-2 
+                         bg-black text-white 
+                         dark:bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 dark:hover:from-cyan-400 dark:hover:to-blue-400 dark:shadow-xl dark:shadow-cyan-500/30"
             >
               {isSubmitting ? 'กำลังเข้าสู่ระบบ...' : (
                 <>
@@ -144,17 +146,18 @@ export default function Login() {
 
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-700"></div>
+                <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-gray-900/50 text-gray-500">หรือ</span>
+                <span className="px-4 bg-white text-gray-500 dark:bg-gray-900/50">หรือ</span>
               </div>
             </div>
 
             {/* ไปหน้าสมัครสมาชิก */}
             <Link
               to="/register"
-              className="w-full h-12 rounded-xl bg-white/5 backdrop-blur-md text-white font-semibold border-2 border-cyan-400/30 hover:bg-cyan-400/10 hover:border-cyan-400/50 transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-full h-12 rounded-lg bg-white text-gray-900 font-semibold border border-gray-300 hover:bg-gray-50 transition-all duration-200 flex items-center justify-center gap-2 
+                         dark:bg-transparent dark:text-white dark:border-cyan-400/30 dark:hover:bg-cyan-400/10"
             >
               <UserPlus className="w-5 h-5" />
               สมัครสมาชิก
@@ -163,8 +166,8 @@ export default function Login() {
 
           <p className="text-center text-xs text-gray-500 mt-6">
             การเข้าสู่ระบบหมายความว่าคุณยอมรับ<br />
-            <button className="text-cyan-400 hover:underline">เงื่อนไขการใช้งาน</button> และ{' '}
-            <button className="text-cyan-400 hover:underline">นโยบายความเป็นส่วนตัว</button>
+            <button className="text-gray-800 hover:underline dark:text-cyan-300">เงื่อนไขการใช้งาน</button> และ{' '}
+            <button className="text-gray-800 hover:underline dark:text-cyan-300">นโยบายความเป็นส่วนตัว</button>
           </p>
         </div>
       </div>
