@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Search, AlertTriangle, Shield, Eye, UserX } from 'lucide-react'
+import { Search, AlertTriangle } from 'lucide-react'
 
 export default function Home1() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -64,11 +64,7 @@ export default function Home1() {
 
       {/* Content */}
       <main className="container relative z-10 text-center py-20 px-4">
-        {/* Alert Badge */}
-        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-400/30 to-blue-400/30 border border-cyan-400/50 text-cyan-100 text-sm mb-8 backdrop-blur-sm shadow-lg shadow-cyan-400/20 hover:shadow-cyan-400/40 transition-all duration-300">
-          <Shield className="w-4 h-4" />
-          ป้องกันการถูกหลอกลวงออนไลน์
-        </div>
+        
 
         {/* Main Heading */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">
@@ -100,26 +96,7 @@ export default function Home1() {
           </button>
         </div>
 
-        {/* Stats Cards */}
-        <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="group bg-gradient-to-br from-gray-900/60 to-gray-950/60 backdrop-blur-md p-6 rounded-2xl border border-cyan-400/30 hover:border-cyan-400/60 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-400/30 hover:-translate-y-1">
-            <Eye className="w-10 h-10 text-cyan-300 mx-auto mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
-            <h3 className="text-3xl font-bold text-white mb-2">10,000+</h3>
-            <p className="text-gray-300 text-sm">รายการตรวจสอบ</p>
-          </div>
-          
-          <div className="group bg-gradient-to-br from-gray-900/60 to-gray-950/60 backdrop-blur-md p-6 rounded-2xl border border-blue-400/30 hover:border-blue-400/60 transition-all duration-300 hover:shadow-xl hover:shadow-blue-400/30 hover:-translate-y-1">
-            <UserX className="w-10 h-10 text-blue-300 mx-auto mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
-            <h3 className="text-3xl font-bold text-white mb-2">5,000+</h3>
-            <p className="text-gray-300 text-sm">มิจฉาชีพถูกรายงาน</p>
-          </div>
-          
-          <div className="group bg-gradient-to-br from-gray-900/60 to-gray-950/60 backdrop-blur-md p-6 rounded-2xl border border-indigo-400/30 hover:border-indigo-400/60 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-400/30 hover:-translate-y-1">
-            <Shield className="w-10 h-10 text-indigo-300 mx-auto mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]" />
-            <h3 className="text-3xl font-bold text-white mb-2">50,000+</h3>
-            <p className="text-gray-300 text-sm">ผู้ใช้ได้รับการปกป้อง</p>
-          </div>
-        </div>
+        
       </main>
     </div>
   )
