@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 
 import authRoutes from './routes/auth.routes.js';
 import reportRoutes from './routes/reports.routes.js';
+import adminRoutes from './routes/admin.routes.js';
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.get('/api/health', (req, res) => {
 // routes
 app.use('/api/auth', authRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/admin', adminRoutes);
 
 // db + server
 const { PORT = 4000, MONGODB_URI } = process.env;
@@ -56,3 +58,4 @@ const { PORT = 4000, MONGODB_URI } = process.env;
     process.exit(1);
   }
 })();
+

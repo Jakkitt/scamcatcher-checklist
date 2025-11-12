@@ -61,3 +61,29 @@ export async function removeReport(id){
   const token = getToken();
   return request(`/reports/${id}`, { method:'DELETE', token });
 }
+
+// Admin services
+export async function adminListReports(){
+  const token = getToken();
+  return request('/reports/admin/all', { token });
+}
+
+export async function approveReport(id){
+  const token = getToken();
+  return request(`/reports/${id}/approve`, { method:'PATCH', token });
+}
+
+export async function rejectReport(id){
+  const token = getToken();
+  return request(`/reports/${id}/reject`, { method:'PATCH', token });
+}
+
+export async function purgeOrphans(){
+  const token = getToken();
+  return request('/reports/_orphans/purge', { method:'DELETE', token });
+}
+
+export async function countOrphans(){
+  const token = getToken();
+  return request('/reports/_orphans/count', { token });
+}

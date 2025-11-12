@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { requireAuth } from '../middlewares/auth.js';
-import { createReport, searchReports, listMyReports, deleteReport, purgeOrphans, countOrphans } from '../controllers/reports.controller.js';
+import { requireAuth, requireRole } from '../middlewares/auth.js';
+import { createReport, searchReports, listMyReports, deleteReport, purgeOrphans, countOrphans, listAllReports, approveReport, rejectReport } from '../controllers/reports.controller.js';
 import { validate, validateQuery } from '../middlewares/validate.js';
 import { createReportSchema, searchReportsSchema } from '../validators/reports.schema.js';
 import multer from 'multer';
@@ -40,8 +40,11 @@ router.post('/', requireAuth, upload.array('photos', 3), ensureAtLeastOnePhoto, 
 router.get('/mine', requireAuth, listMyReports);
 router.delete('/:id', requireAuth, deleteReport);
 // admin utilities
-router.get('/_orphans/count', requireAuth, countOrphans);
-router.delete('/_orphans/purge', requireAuth, purgeOrphans);
+router.get('/_orphans/count', requireAuth, requireRole('admin'), countOrphans);
+router.delete('/_orphans/purge', requireAuth, requireRole('admin'), purgeOrphans);
+router.get('/admin/all', requireAuth, requireRole('admin'), listAllReports);
+router.patch('/:id/approve', requireAuth, requireRole('admin'), approveReport);
+router.patch('/:id/reject', requireAuth, requireRole('admin'), rejectReport);
 
 export default router;
 

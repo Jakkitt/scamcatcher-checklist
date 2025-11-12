@@ -8,10 +8,10 @@ const userSchema = new mongoose.Schema(
     gender: { type: String, enum: ['', 'male', 'female', 'other'], default: '' },
     dob: { type: Date },
     avatarUrl: { type: String, default: '' },
-    role: { type: String, enum: ['user','admin'], default: 'user' }
+    role: { type: String, enum: ['user','admin'], default: 'user' },
+    suspended: { type: Boolean, default: false }
   },
   { timestamps: true }
 );
 
 export default mongoose.model('User', userSchema);
-

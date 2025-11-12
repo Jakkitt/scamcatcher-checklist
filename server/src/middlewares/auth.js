@@ -13,3 +13,10 @@ export function requireAuth(req, res, next) {
   }
 }
 
+export function requireRole(role) {
+  return (req, res, next) => {
+    const r = req.user?.role || 'user';
+    if (r !== role) return res.status(403).json({ error:{ message:'forbidden' } });
+    next();
+  };
+}

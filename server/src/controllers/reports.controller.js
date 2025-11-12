@@ -43,6 +43,43 @@ export async function listMyReports(req, res){
   }
 }
 
+export async function listAllReports(req, res){
+  try{
+    const list = await Report.find({}).sort({ createdAt: -1 }).limit(500);
+    return res.json(list.map(r => ({ id: r._id.toString(), ...r.toObject() })));
+  }catch(e){
+    return res.status(500).json({ error:{ message: e.message } });
+  }
+}
+
+async function setStatus(id, status){
+  const doc = await Report.findById(id);
+  if (!doc) return null;
+  doc.status = status;
+  await doc.save();
+  return doc;
+}
+
+export async function approveReport(req, res){
+  try{
+    const doc = await setStatus(req.params.id, 'approved');
+    if (!doc) return res.status(404).json({ error:{ message:'not found' } });
+    return res.json({ id: doc._id.toString(), ...doc.toObject() });
+  }catch(e){
+    return res.status(500).json({ error:{ message: e.message } });
+  }
+}
+
+export async function rejectReport(req, res){
+  try{
+    const doc = await setStatus(req.params.id, 'rejected');
+    if (!doc) return res.status(404).json({ error:{ message:'not found' } });
+    return res.json({ id: doc._id.toString(), ...doc.toObject() });
+  }catch(e){
+    return res.status(500).json({ error:{ message: e.message } });
+  }
+}
+
 export async function deleteReport(req, res){
   try{
     const id = req.params.id;
