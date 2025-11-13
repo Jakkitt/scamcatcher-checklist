@@ -28,14 +28,18 @@ export default function Login() {
     setError('')
     try {
       await login({ email: formData.email, password: formData.password })
-      navigate(from, { replace: true }) // ✅ เปลี่ยนหน้าเมื่อ login สำเร็จ
+      navigate(from, { replace: true })
     } catch (err) {
       const raw = String(err?.message || '')
       let friendly = raw || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ'
-      // field errors จาก backend
       const fields = err?.data?.error?.fields || {}
-      const mapMsg = (code)=>({ invalid_email:'อีเมลไม่ถูกต้อง', min_8:'อย่างน้อย 8 ตัวอักษร', max_72:'ไม่เกิน 72 ตัวอักษร', max_bytes_72:'ไม่เกิน 72 ไบต์' }[code] || 'ข้อมูลไม่ถูกต้อง')
-      if (err?.status === 400 && fields){
+      const mapMsg = (code) => ({
+        invalid_email: 'อีเมลไม่ถูกต้อง',
+        min_8: 'อย่างน้อย 8 ตัวอักษร',
+        max_72: 'ไม่เกิน 72 ตัวอักษร',
+        max_bytes_72: 'ไม่เกิน 72 ไบต์'
+      }[code] || 'ข้อมูลไม่ถูกต้อง')
+      if (err?.status === 400 && fields) {
         if (fields.email) setError(mapMsg(fields.email))
         else if (fields.password) setError(mapMsg(fields.password))
         else setError('ข้อมูลไม่ถูกต้อง')
@@ -54,30 +58,47 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-[70vh] pt-16 relative overflow-hidden flex items-start justify-center bg-gray-50 dark:bg-gradient-to-br dark:from-gray-950 dark:via-slate-950 dark:to-black">
-      {/* Animated Background (dark only) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden dark:block">
-        <div
-          className="absolute w-96 h-96 bg-cyan-400/25 rounded-full blur-3xl"
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-950 to-black relative overflow-hidden flex items-center justify-center">
+      {/* 🔹 Animated Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Glowing Orbs */}
+        <div 
+          className="absolute w-96 h-96 bg-cyan-400/30 rounded-full blur-3xl"
           style={{
             left: `${mousePos.x / 20}px`,
             top: `${mousePos.y / 20}px`,
             transition: 'all 0.3s ease-out'
           }}
         />
-        <div
-          className="absolute w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"
+        <div 
+          className="absolute w-96 h-96 bg-blue-400/25 rounded-full blur-3xl"
           style={{
             right: `${mousePos.x / 30}px`,
             bottom: `${mousePos.y / 30}px`,
             transition: 'all 0.4s ease-out'
           }}
         />
-        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-indigo-400/15 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-20 right-20 w-72 h-72 bg-indigo-400/20 rounded-full blur-3xl animate-pulse" />
+        
+        {/* Subtle Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+        
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-300/50 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animation: `float ${5 + Math.random() * 10}s linear infinite`,
+              animationDelay: `${Math.random() * 5}s`
+            }}
+          />
+        ))}
       </div>
 
-      <style>{`
+      <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
           10% { opacity: 0.5; }
@@ -86,62 +107,55 @@ export default function Login() {
         }
       `}</style>
 
-      {/* Login Form */}
+      {/* 🔹 Login Form */}
       <div className="relative z-10 w-full max-w-md mx-4">
-
-        <div className="rounded-3xl p-8 shadow-2xl 
-                        bg-white border border-gray-200 text-gray-900 
-                        dark:bg-gradient-to-br dark:from-gray-900/70 dark:to-gray-950/70 dark:text-white dark:border-cyan-400/20 dark:backdrop-blur-xl dark:shadow-cyan-500/10">
+        <div className="rounded-3xl p-10 sm:p-12 border-4 border-cyan-400/50 bg-white/5 backdrop-blur-md shadow-[0_0_60px_rgba(6,182,212,0.3)] text-white">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black mb-2 dark:text-white">
+            <h2 className="text-4xl font-extrabold mb-3 bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-300 text-transparent bg-clip-text drop-shadow-[0_0_25px_rgba(6,182,212,0.8)]">
               เข้าสู่ระบบ
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">กรอกอีเมลและรหัสผ่านเพื่อเข้าสู่ระบบ</p>
+            <p className="text-gray-300">กรอกอีเมลและรหัสผ่านเพื่อเข้าสู่ระบบ</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="h-5 text-center text-sm">
-              <span className={error ? 'text-red-500' : 'opacity-0'}>{error || 'placeholder'}</span>
+              <span className={error ? 'text-red-400' : 'opacity-0'}>{error || 'placeholder'}</span>
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm mb-2 font-medium text-gray-700 dark:text-cyan-300">อีเมล</label>
+              <label className="block text-sm mb-2 font-medium text-cyan-300">อีเมล</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-300" />
                 <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="your@email.com"
                   required
-                  className="w-full h-12 pl-12 pr-4 rounded-xl transition-all outline-none 
-                             bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:border-gray-400 focus:ring-2 focus:ring-gray-200 
-                             dark:bg-gray-900/50 dark:border-cyan-400/30 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400/60 dark:focus:ring-cyan-400/20"
+                  className="w-full h-12 pl-12 pr-4 rounded-xl bg-gray-900/50 border border-cyan-400/30 text-white placeholder-gray-500 focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20 outline-none transition-all"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm mb-2 font-medium text-gray-700 dark:text-cyan-300">รหัสผ่าน</label>
+              <label className="block text-sm mb-2 font-medium text-cyan-300">รหัสผ่าน</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-300" />
                 <input
                   type="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   placeholder="••••••••"
                   required
-                  className="w-full h-12 pl-12 pr-4 rounded-xl transition-all outline-none 
-                             bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:border-gray-400 focus:ring-2 focus:ring-gray-200 
-                             dark:bg-gray-900/50 dark:border-cyan-400/30 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400/60 dark:focus:ring-cyan-400/20"
+                  className="w-full h-12 pl-12 pr-4 rounded-xl bg-gray-900/50 border border-cyan-400/30 text-white placeholder-gray-500 focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20 outline-none transition-all"
                 />
               </div>
             </div>
 
             <div className="text-right">
-              <button type="button" className="text-sm text-gray-800 hover:text-black transition-colors dark:text-cyan-300 dark:hover:text-cyan-200">
+              <button type="button" className="text-sm text-cyan-300 hover:text-cyan-200 transition-colors">
                 ลืมรหัสผ่าน?
               </button>
             </div>
@@ -149,9 +163,9 @@ export default function Login() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-2 rounded-lg disabled:opacity-60 flex items-center justify-center gap-2 
-                         bg-black text-white 
-                         dark:bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 dark:hover:from-cyan-400 dark:hover:to-blue-400 dark:shadow-xl dark:shadow-cyan-500/30"
+              className="w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 
+                         bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 
+                         transition-all duration-300 shadow-lg shadow-cyan-500/40 hover:shadow-2xl hover:shadow-cyan-500/60"
             >
               {isSubmitting ? 'กำลังเข้าสู่ระบบ...' : (
                 <>
@@ -163,28 +177,26 @@ export default function Login() {
 
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
+                <div className="w-full border-t border-cyan-400/20"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500 dark:bg-gray-900/50">หรือ</span>
+                <span className="px-4 bg-black/70 text-gray-300">หรือ</span>
               </div>
             </div>
 
-            {/* ไปหน้าสมัครสมาชิก */}
             <Link
               to="/register"
-              className="w-full h-12 rounded-lg bg-white text-gray-900 font-semibold border border-gray-300 hover:bg-gray-50 transition-all duration-200 flex items-center justify-center gap-2 
-                         dark:bg-transparent dark:text-white dark:border-cyan-400/30 dark:hover:bg-cyan-400/10"
+              className="w-full h-12 rounded-xl font-semibold border-2 border-cyan-400/40 hover:border-cyan-300/60 text-white flex items-center justify-center gap-2 transition-all hover:bg-cyan-400/10"
             >
               <UserPlus className="w-5 h-5" />
               สมัครสมาชิก
             </Link>
           </form>
 
-          <p className="text-center text-xs text-gray-500 mt-6">
+          <p className="text-center text-xs text-gray-400 mt-6">
             การเข้าสู่ระบบหมายความว่าคุณยอมรับ<br />
-            <button className="text-gray-800 hover:underline dark:text-cyan-300">เงื่อนไขการใช้งาน</button> และ{' '}
-            <button className="text-gray-800 hover:underline dark:text-cyan-300">นโยบายความเป็นส่วนตัว</button>
+            <button className="text-cyan-300 hover:underline">เงื่อนไขการใช้งาน</button> และ{' '}
+            <button className="text-cyan-300 hover:underline">นโยบายความเป็นส่วนตัว</button>
           </p>
         </div>
       </div>

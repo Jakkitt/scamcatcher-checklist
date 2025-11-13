@@ -1,4 +1,4 @@
-// src/components/ProfileSidebar.jsx
+﻿// src/components/ProfileSidebar.jsx
 import React from "react";
 import AvatarPicker from "./AvatarPicker";
 import { useAuth } from "../contexts/AuthContext";
@@ -12,7 +12,7 @@ export default function ProfileSidebar({
 
   return (
     <aside className="space-y-6">
-      <div className="border rounded-xl p-6 text-center bg-white dark:bg-gray-900 dark:border-gray-800">
+      <div className="border rounded-xl p-6 text-center bg-white dark:bg-[#08162c]/90 dark:border-cyan-400/30 dark:text-white dark:shadow-[0_20px_60px_rgba(6,182,212,0.2)]">
         <AvatarPicker
           value={user?.avatarUrl}
           onChange={(img) => updateUser?.({ avatarUrl: img })}
@@ -20,16 +20,16 @@ export default function ProfileSidebar({
         />
         <div className="mt-3 font-semibold">{displayName}</div>
         {user?.email && (
-          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{user.email}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-300 mt-1">{user.email}</div>
         )}
       </div>
 
       {showAccountActions && (
-        <div className="border rounded-xl p-6 bg-white dark:bg-gray-900 dark:border-gray-800">
+        <div className="border rounded-xl p-6 bg-white dark:bg-[#08162c]/90 dark:border-cyan-400/30 dark:text-white dark:shadow-[0_20px_60px_rgba(6,182,212,0.2)]">
           <h3 className="font-semibold mb-3">การตั้งค่าบัญชี</h3>
           <NavLink
             to="/change-password"
-            className="block text-center border rounded-lg h-10 leading-10 mb-3"
+            className="block text-center border rounded-lg h-10 leading-10 mb-3 dark:border-cyan-400/30 dark:text-white"
           >
             เปลี่ยนรหัสผ่าน
           </NavLink>
@@ -41,3 +41,4 @@ export default function ProfileSidebar({
     </aside>
   );
 }
+

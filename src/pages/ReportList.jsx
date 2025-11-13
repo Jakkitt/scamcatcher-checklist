@@ -1,4 +1,4 @@
-// src/pages/ReportList.jsx
+﻿// src/pages/ReportList.jsx
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import ProfileSidebar from "../components/ProfileSidebar";
@@ -6,126 +6,155 @@ import { listMyReports, removeReport } from "../services/reports";
 
 function StatusBadge({ status }) {
   const map = {
-    pending: { label: "รอตรวจสอบ", cls: "bg-black text-white" },
-    approved: { label: "อนุมัติแล้ว", cls: "bg-green-600 text-white" },
-    rejected: { label: "ปฏิเสธ", cls: "bg-red-600 text-white" },
+    pending: { label: "รอตรวจสอบ", cls: "bg-yellow-500 text-black" },
+    approved: { label: "อนุมัติแล้ว", cls: "bg-green-600 text-gray-900 dark:text-white" },
+    rejected: { label: "ปฏิเสธ", cls: "bg-red-600 text-gray-900 dark:text-white" },
   };
   const s = map[status] || map.pending;
   return (
-    <span className={`px-3 py-1 rounded-lg text-sm ${s.cls}`}>{s.label}</span>
+    <span className={`px-3 py-1 rounded-lg text-sm font-medium ${s.cls}`}>
+      {s.label}
+    </span>
   );
 }
 
 export default function ReportList() {
   const [items, setItems] = useState(null);
-  const [deleting, setDeleting] = useState('');
+  const [deleting, setDeleting] = useState("");
 
   useEffect(() => {
     let alive = true;
     (async () => {
-      const data = await listMyReports(); // mock/localStorage หรือ API จริง
+      const data = await listMyReports();
       if (alive) setItems(data);
     })();
     return () => (alive = false);
   }, []);
 
   const onDelete = async (id) => {
-    if (!confirm('ยืนยันลบรายงานนี้?')) return;
+    if (!confirm("ยืนยันลบรายงานนี้?")) return;
     setDeleting(String(id));
-    try{
+    try {
       await removeReport(id);
-      setItems(prev => (prev || []).filter(x => String(x.id) !== String(id)));
-    }catch(e){
-      alert(e?.message || 'ลบไม่สำเร็จ');
-    }finally{
-      setDeleting('');
+      setItems((prev) => (prev || []).filter((x) => String(x.id) !== String(id)));
+    } catch (e) {
+      alert(e?.message || "ลบไม่สำเร็จ");
+    } finally {
+      setDeleting("");
     }
   };
 
   return (
-    <main className="container py-10 grid md:grid-cols-3 gap-8">
-      {/* การ์ดซ้าย */}
-      <ProfileSidebar />
+    <div className="relative overflow-hidden bg-gray-50 dark:bg-gradient-to-br dark:from-gray-950 dark:via-slate-950 dark:to-black py-10">
+      {/* พื้นหลังแบบเรืองแสง */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden dark:block">
+        <div className="absolute w-96 h-96 bg-cyan-400/30 rounded-full blur-3xl animate-pulse" style={{ left: "10%", top: "20%" }} />
+        <div className="absolute w-96 h-96 bg-blue-400/25 rounded-full blur-3xl animate-pulse" style={{ right: "10%", bottom: "20%", animationDelay: "1s" }} />
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+      </div>
 
-      {/* ขวา */}
-      <section className="md:col-span-2">
-        {/* แท็บบน */}
-        <div className="mb-6">
-          <div className="w-full flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
-            <NavLink
-              to="/profile"
-              className={({ isActive }) =>
-                `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
-                }`
-              }
-            >
-              โปรไฟล์
-            </NavLink>
-            <NavLink
-              to="/reports"
-              className={({ isActive }) =>
-                `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
-                }`
-              }
-            >
-              รายงานของฉัน
-            </NavLink>
-            <NavLink
-              to="/settings"
-              className={({ isActive }) =>
-                `flex-1 text-center h-10 rounded-lg flex items-center justify-center ${
-                  isActive ? "bg-white dark:bg-gray-900 shadow-sm font-semibold" : "text-gray-600"
-                }`
-              }
-            >
-              การตั้งค่า
-            </NavLink>
-          </div>
-        </div>
+      <main className="container relative z-10 py-10 grid md:grid-cols-3 gap-8">
+        {/* ซ้าย */}
+        <ProfileSidebar />
 
-        {/* รายการรายงาน */}
-        <div className="border rounded-xl bg-white dark:bg-gray-900 dark:border-gray-800 p-6">
-          <h1 className="text-xl font-bold mb-4">รายงานของฉัน</h1>
-
-          {!items ? (
-            <div className="text-sm text-gray-500">กำลังโหลด…</div>
-          ) : items.length === 0 ? (
-            <div className="text-sm text-gray-600">
-              ยังไม่มีรายงานของคุณ หากพบเหตุสงสัย
-              <a href="/report" className="underline ml-1">
-                คลิกเพื่อส่งรายงาน
-              </a>
+        {/* ขวา */}
+        <section className="md:col-span-2">
+          {/* แถบเมนู */}
+          <div className="mb-6">
+            <div className="w-full flex items-center gap-2 bg-white border border-gray-200 rounded-2xl p-2 shadow-lg dark:bg-[#08162c]/80 dark:border-cyan-400/30">
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  `flex-1 text-center h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                    isActive
+                      ? "bg-black text-white shadow-lg shadow-black/30 font-semibold dark:bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 dark:shadow-cyan-500/30"
+                      : "text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-800/50"
+                  }`
+                }
+              >
+                โปรไฟล์
+              </NavLink>
+              <NavLink
+                to="/reports"
+                className={({ isActive }) =>
+                  `flex-1 text-center h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                    isActive
+                      ? "bg-black text-white shadow-lg shadow-black/30 font-semibold dark:bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 dark:shadow-cyan-500/30"
+                      : "text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-800/50"
+                  }`
+                }
+              >
+                รายงานของฉัน
+              </NavLink>
+              <NavLink
+                to="/settings"
+                className={({ isActive }) =>
+                  `flex-1 text-center h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                    isActive
+                      ? "bg-black text-white shadow-lg shadow-black/30 font-semibold dark:bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500 dark:shadow-cyan-500/30"
+                      : "text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-800/50"
+                  }`
+                }
+              >
+                การตั้งค่า
+              </NavLink>
             </div>
-          ) : (
-            <ul className="space-y-4">
-              {items.map((r) => (
-                <li
-                  key={r.id}
-                  className="border rounded-lg p-4 flex items-start justify-between gap-4 dark:border-gray-800"
-                >
-                  <div>
-                    <div className="font-medium">{r.name || "ไม่ระบุชื่อ"}</div>
-                    <div className="text-sm text-gray-500">
-                      หมวดหมู่: {r.category || "-"} · วันที่ส่ง{" "}
-                      {new Date(r.createdAt).toLocaleDateString()}
+          </div>
+
+          {/* รายการรายงาน */}
+          <div className="bg-white text-gray-900 rounded-2xl p-6 shadow-xl border border-gray-200 dark:bg-[#061427]/90 dark:text-white dark:border-cyan-400/30 dark:shadow-[0_25px_80px_rgba(6,182,212,0.25)]">
+            <h1 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">รายงานของฉัน</h1>
+
+            {!items ? (
+              <div className="text-sm text-gray-400">กำลังโหลด…</div>
+            ) : items.length === 0 ? (
+              <div className="text-sm text-gray-500 dark:text-gray-300">
+                ยังไม่มีรายงานของคุณ หากพบเหตุสงสัย
+                <a href="/report" className="underline text-gray-900 font-semibold ml-1 dark:text-white">
+                  คลิกเพื่อส่งรายงาน
+                </a>
+              </div>
+            ) : (
+              <ul className="space-y-4">
+                {items.map((r) => (
+                  <li
+                    key={r.id}
+                    className="border border-gray-200 rounded-xl p-4 flex items-start justify-between gap-4 bg-white dark:bg-[#0a1c32]/90 dark:border-cyan-400/30 dark:shadow-[0_15px_50px_rgba(6,182,212,0.25)]"
+                  >
+                    <div>
+                      <div className="font-medium text-gray-900 dark:text-white">{r.name || "ไม่ระบุชื่อ"}</div>
+                      <div className="text-sm text-gray-400">
+                        หมวดหมู่: {r.category || "-"} · วันที่ส่ง{" "}
+                        {new Date(r.createdAt).toLocaleDateString()}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <StatusBadge status={r.status || "pending"} />
-                    <button
-                      onClick={() => onDelete(r.id)}
-                      disabled={deleting === String(r.id)}
-                      className="px-3 py-1 rounded-lg border text-sm hover:bg-gray-50 dark:hover:bg-gray-800"
-                    >{deleting === String(r.id) ? 'กำลังลบ…' : 'ลบ'}</button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </section>
-    </main>
+                    <div className="flex items-center gap-2">
+                      <StatusBadge status={r.status || "pending"} />
+                      <button
+                        onClick={() => onDelete(r.id)}
+                        disabled={deleting === String(r.id)}
+                        className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-300 ${
+                          deleting === String(r.id)
+                            ? "bg-red-500/60 text-gray-900 dark:text-white cursor-not-allowed"
+                            : "bg-red-600 hover:bg-red-700 text-gray-900 dark:text-white shadow-md shadow-red-500/20"
+                        }`}
+                      >
+                        {deleting === String(r.id) ? "กำลังลบ…" : "ลบ"}
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
+
+
+
+
+

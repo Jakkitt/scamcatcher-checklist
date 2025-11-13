@@ -57,7 +57,7 @@ export default function AdminUsers(){
                 <td className="p-3 break-all">{u.email}</td>
                 <td className="p-3">{new Date(u.joinedAt).toLocaleDateString()}</td>
                 <td className="p-3">{u.reports}</td>
-                <td className="p-3">{u.suspended ? 'ระงับการใช้งาน' : (u.role==='admin' ? 'แอดมิน' : 'ใช้งานอยู่')}</td>
+                <td className="p-3">{u.suspended ? 'ระงับการใช้งาน' : (u.role==='admin' ? 'แอดมิน' : 'ปกติ')}</td>
                 <td className="p-3">
                   <div className="flex items-center gap-2 justify-end whitespace-nowrap">
                     {u.role !== 'admin' && (

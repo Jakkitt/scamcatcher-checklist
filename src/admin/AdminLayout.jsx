@@ -17,11 +17,16 @@ function Item({ to, children }){
 
 export default function AdminLayout(){
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-      <div className="container max-w-[1600px] py-6 grid lg:grid-cols-12 gap-6">
+    <div className="relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-gray-950 dark:via-slate-950 dark:to-black text-gray-900 dark:text-gray-100 py-10">
+      <div className="absolute inset-0 pointer-events-none hidden dark:block">
+        <div className="absolute w-96 h-96 bg-cyan-400/30 rounded-full blur-3xl" style={{ left: '8%', top: '15%' }} />
+        <div className="absolute w-96 h-96 bg-blue-400/25 rounded-full blur-3xl" style={{ right: '8%', bottom: '20%' }} />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+      </div>
+      <div className="container max-w-[1600px] relative z-10 py-6 grid lg:grid-cols-12 gap-6">
         <aside className="lg:col-span-2">
-          <div className="sticky top-6 space-y-2 border rounded-xl p-4 bg-white dark:bg-gray-900 dark:border-gray-800">
-            <div className="text-lg font-bold mb-2">แอดมิน</div>
+          <div className="sticky top-6 space-y-2 border rounded-xl p-4 bg-white/90 dark:bg-gray-900/90 dark:border-gray-800">
+            <div className="text-lg font-bold mb-2 text-gray-800 dark:text-gray-100">แอดมิน</div>
             <Item to="/admin">แดชบอร์ด</Item>
             <Item to="/admin/reports">รายงานมิจฉาชีพ</Item>
             <Item to="/admin/users">จัดการผู้ใช้งาน</Item>
@@ -34,3 +39,4 @@ export default function AdminLayout(){
     </div>
   );
 }
+
